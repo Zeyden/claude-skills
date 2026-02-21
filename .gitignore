@@ -1,0 +1,15 @@
+mcp.json
+/.idea/
+/backups/
+/cache/
+/debug/
+/file-history/
+/paste-cache/
+/plans/
+/plugins/
+/statsig/
+/tasks/
+/todos/
+/projects/
+/history.jsonl
+/stats-cache.json
