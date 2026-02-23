@@ -13,3 +13,9 @@ mcp.json
 /projects/
 /history.jsonl
 /stats-cache.json
+
+ide/
+
+image-cache/
+
+shell-snapshots/
