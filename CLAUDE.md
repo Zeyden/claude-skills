@@ -30,6 +30,7 @@ Ticket IDs follow the pattern `[A-Z]+-[0-9]+` (e.g., `SUB-123`, `PROJ-42`). This
 | Android navigation (Navigation Compose, routes, bottom nav), runtime permissions, platform APIs (Intent, Context, Activity), Android lifecycle (ViewModel, collectAsStateWithLifecycle), Android build config, edge-to-edge UI | `android-expert` |
 | Kotlin Notebook (.ipynb), notebook cells, %use directives, @file:DependsOn, interactive Kotlin documentation, component catalogues in notebooks, design token documentation, Kandy charts | `kotlin-notebook` |
 | kotlin-inject, DI setup in Kotlin, Dagger alternatives for KMP, compile-time injection, @Component/@Inject/@Provides, kotlin-inject-anvil, assisted injection, scoping, qualifiers, multi-bindings, KmpComponentCreate, DI framework choice for KMP | `kotlin-inject` |
+| SQLDelight setup, .sq files, database drivers (Android/iOS/JVM/JS), migrations (.sqm), ColumnAdapter, custom column types, coroutines-extensions (asFlow, mapToList), reactive queries, SQLite performance, WAL mode, generateAsync | `sqldelight-kmp` |
 
 Never perform these workflows manually when a skill exists - always invoke the appropriate skill.
 
@@ -86,7 +87,17 @@ The KMP expert skills are designed to work together. When one skill identifies a
 | `kotlin-inject` | Compose function injection UI patterns | `compose-expert` |
 | `kotlin-inject` | Android Activity/Fragment/ViewModel lifecycle | `android-expert` |
 | `kotlin-multiplatform` | DI setup, component creation for KMP | `kotlin-inject` |
+| `kotlin-multiplatform` | SQLDelight setup, .sq files, database layer | `sqldelight-kmp` |
 | `gradle-expert` | kotlin-inject KSP configuration | `kotlin-inject` |
+| `gradle-expert` | SQLDelight plugin config, dialect dependencies | `sqldelight-kmp` |
+| `sqldelight-kmp` | Gradle build errors, version catalogue, dialect deps | `gradle-expert` |
+| `sqldelight-kmp` | expect/actual driver factory, source set placement | `kotlin-multiplatform` |
+| `sqldelight-kmp` | StateFlow/SharedFlow patterns for ViewModel layer | `kotlin-expert` |
+| `sqldelight-kmp` | Advanced Flow operators (flatMapLatest, combine, stateIn) | `kotlin-coroutines` |
+| `sqldelight-kmp` | kotlin-inject DI setup for driver factories | `kotlin-inject` |
+| `sqldelight-kmp` | Compose UI collecting StateFlow from queries | `compose-expert` |
+| `sqldelight-kmp` | Desktop file paths, app data directories | `desktop-expert` |
+| `sqldelight-kmp` | Android Context, ViewModel lifecycle | `android-expert` |
 
 ## Prerequisites Reminder
 
