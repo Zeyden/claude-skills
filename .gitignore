@@ -19,3 +19,4 @@ ide/
 image-cache/
 
 shell-snapshots/
+/.credentials.json

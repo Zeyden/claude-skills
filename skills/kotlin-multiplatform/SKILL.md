@@ -1,11 +1,6 @@
 ---
 name: kotlin-multiplatform
-description: |
-  Platform abstraction decision-making for KMP projects. Guides when to abstract vs keep platform-specific,
-  source set placement (commonMain, platform-specific), expect/actual patterns. Covers primary targets
-  (Android, JVM/Desktop, iOS) with web/wasm future considerations. Integrates with gradle-expert for dependency issues.
-  Triggers on: abstraction decisions ("should I share this?"), source set placement questions, expect/actual creation,
-  build.gradle.kts work, incorrect placement detection, KMP dependency suggestions.
+description: Platform abstraction decision-making for KMP projects. Guides when to abstract vs keep platform-specific, source set placement (commonMain, platform-specific), expect/actual patterns. Covers primary targets (Android, JVM/Desktop, iOS) with web/wasm future considerations. Integrates with gradle-expert for dependency issues. Triggers on abstraction decisions, source set placement questions, expect/actual creation, build.gradle.kts work, incorrect placement detection, KMP dependency suggestions.
 ---
 
 # Kotlin Multiplatform: Platform Abstraction Decisions

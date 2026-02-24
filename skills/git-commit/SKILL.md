@@ -1,7 +1,7 @@
 ---
 name: Git Commit
 description: Generates storytelling-focused Conventional Commits messages with optional issue tracker context, then commits and pushes changes. Use when the user says "commit", "git commit", or asks to commit changes, wants to create a commit, or when work is complete and ready to commit.
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git add:*), Bash(git branch:*), Bash(git log:*), AskUserQuestion, mcp__atlassian__getJiraIssue, mcp__linear-server__get_issue
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git add:*), Bash(git branch:*), Bash(git checkout:*), Bash(git log:*), AskUserQuestion, mcp__atlassian__getJiraIssue, mcp__linear-server__get_issue
 ---
 
 # Git Commit
@@ -42,7 +42,20 @@ git log --oneline -5
 git branch --show-current
 ```
 
-### 2. Extract Issue Tracker Context (if applicable)
+### 2. Branch Safety Check (MANDATORY)
+
+**NEVER commit directly to `main` or `master`.**
+
+After gathering context in step 1, check the current branch name. If you are on `main` or `master`:
+
+1. **Stop** — do not stage or commit anything.
+2. **Ask the user** what branch name to use, suggesting one derived from the changes (e.g., `chore/add-sqldelight-deps`, `fix/token-refresh-race`). If a ticket ID is present in the conversation context, include it (e.g., `chore/sub-10-foundation-deps`).
+3. **Create and switch** to the new branch: `git checkout -b <branch-name>`
+4. Then continue with the rest of the workflow.
+
+This prevents commits landing on the default branch where they get pushed before a PR can be created.
+
+### 3. Extract Issue Tracker Context (if applicable)
 
 Parse the current branch name to find ticket IDs (Jira or Linear) using these patterns:
 - `PROJ-123-feature-name`
@@ -56,7 +69,7 @@ If a ticket ID is found:
 - Get title, description, acceptance criteria, comments
 - Use this context to understand the broader purpose of the changes
 
-### 3. Human-in-the-Loop - Ask for Context
+### 4. Human-in-the-Loop - Ask for Context
 
 **ALWAYS use the AskUserQuestion tool to ask WHY the change was made.**
 
@@ -76,7 +89,7 @@ The options should be specific to the actual changes observed in the diff, not g
 
 Wait for their response and incorporate their explanation into the commit message.
 
-### 4. Analyze Technical Changes
+### 5. Analyze Technical Changes
 
 Review the staged changes to understand WHAT changed technically:
 - Files modified
@@ -84,7 +97,7 @@ Review the staged changes to understand WHAT changed technically:
 - Dependencies changed
 - Configuration updates
 
-### 5. Create Enhanced Commit Message
+### 6. Create Enhanced Commit Message
 
 Generate a commit message that tells a complete story for future code archeology:
 
@@ -115,7 +128,7 @@ Problem solved:
 - **perf**: performance improvements
 - **ci**: continuous integration changes
 
-### 6. Execute Commit and Push (Requires Confirmation)
+### 7. Execute Commit and Push (Requires Confirmation)
 
 **IMPORTANT: Do not use `git add -A` or `git add .`**
 Commit only the files that are already staged and understood.
