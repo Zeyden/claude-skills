@@ -28,7 +28,7 @@ Ticket IDs follow the pattern `[A-Z]+-[0-9]+` (e.g., `SUB-123`, `PROJ-42`). This
 | Composable UI components, state management (remember, derivedStateOf, produceState), recomposition optimisation (@Stable/@Immutable visual usage), Material3 theming, custom ImageVector icons, shared vs platform-specific UI decisions | `compose-expert` |
 | Desktop-specific APIs (Window, Tray, MenuBar, Dialog), composeApp/ module files, keyboard shortcuts, desktop navigation (NavigationRail, multi-window), file system integration, OS-specific behaviour | `desktop-expert` |
 | Android navigation (Navigation Compose, routes, bottom nav), runtime permissions, platform APIs (Intent, Context, Activity), Android lifecycle (ViewModel, collectAsStateWithLifecycle), Android build config, edge-to-edge UI | `android-expert` |
-| Kotlin Notebook (.ipynb), notebook cells, %use directives, @file:DependsOn, interactive Kotlin documentation, component catalogues in notebooks, design token documentation, Kandy charts | `kotlin-notebook` |
+| Kotlin Notebook (.ipynb), notebook cells, %use directives, @file:DependsOn, USE {} blocks, DataFrame operations, rich output rendering (tables, HTML, images, SVG, LaTeX, Kandy charts), Compose UI rendering (ImageComposeScene), interactive Kotlin documentation, component catalogues in notebooks, design token documentation, prototyping Kotlin code in notebooks | `kotlin-notebook` |
 | kotlin-inject, DI setup in Kotlin, Dagger alternatives for KMP, compile-time injection, @Component/@Inject/@Provides, kotlin-inject-anvil, assisted injection, scoping, qualifiers, multi-bindings, KmpComponentCreate, DI framework choice for KMP | `kotlin-inject` |
 | SQLDelight setup, .sq files, database drivers (Android/iOS/JVM/JS), migrations (.sqm), ColumnAdapter, custom column types, coroutines-extensions (asFlow, mapToList), reactive queries, SQLite performance, WAL mode, generateAsync | `sqldelight-kmp` |
 
@@ -80,6 +80,8 @@ The KMP expert skills are designed to work together. When one skill identifies a
 | `kotlin-notebook` | Dependency coordinates, publishing | `gradle-expert` |
 | `kotlin-notebook` | Source set context for imports | `kotlin-multiplatform` |
 | `kotlin-notebook` | Desktop-specific component previews | `desktop-expert` |
+| `kotlin-notebook` | DI setup for notebook-tested code | `kotlin-inject` |
+| `kotlin-notebook` | SQLDelight queries in notebooks | `sqldelight-kmp` |
 | `compose-expert` | Component catalogues in notebooks | `kotlin-notebook` |
 | `kotlin-expert` | Interactive documentation, prototyping | `kotlin-notebook` |
 | `kotlin-inject` | Gradle/KSP build issues, version catalogue | `gradle-expert` |
