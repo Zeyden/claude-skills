@@ -31,6 +31,7 @@ Ticket IDs follow the pattern `[A-Z]+-[0-9]+` (e.g., `SUB-123`, `PROJ-42`). This
 | Kotlin Notebook (.ipynb), notebook cells, %use directives, @file:DependsOn, USE {} blocks, DataFrame operations, rich output rendering (tables, HTML, images, SVG, LaTeX, Kandy charts), Compose UI rendering (ImageComposeScene), interactive Kotlin documentation, component catalogues in notebooks, design token documentation, prototyping Kotlin code in notebooks | `kotlin-notebook` |
 | kotlin-inject, DI setup in Kotlin, Dagger alternatives for KMP, compile-time injection, @Component/@Inject/@Provides, kotlin-inject-anvil, assisted injection, scoping, qualifiers, multi-bindings, KmpComponentCreate, DI framework choice for KMP | `kotlin-inject` |
 | SQLDelight setup, .sq files, database drivers (Android/iOS/JVM/JS), migrations (.sqm), ColumnAdapter, custom column types, coroutines-extensions (asFlow, mapToList), reactive queries, SQLite performance, WAL mode, generateAsync | `sqldelight-kmp` |
+| BDUI Sanity pages, BDUI widget configuration, BDUI styling (BDUIStyleV1Output), Sanity CMS BDUI pages, widget catalog, enrichment backends, Lokalize keys, BDUI landing pages, JavaScript actions, BDUI widget fields, BDUISupercell, BDUIInformer, BDUIAccordion, BDUIButton, BDUI OpenAPI contracts, Input/Output pattern | `bdui-sanity` |
 
 Never perform these workflows manually when a skill exists - always invoke the appropriate skill.
 
@@ -100,6 +101,8 @@ The KMP expert skills are designed to work together. When one skill identifies a
 | `sqldelight-kmp` | Compose UI collecting StateFlow from queries | `compose-expert` |
 | `sqldelight-kmp` | Desktop file paths, app data directories | `desktop-expert` |
 | `sqldelight-kmp` | Android Context, ViewModel lifecycle | `android-expert` |
+| `bdui-sanity` | Go backend handlers, pipeline, preprocessors, postprocessors | `bdui-go` |
+| `bdui-sanity` | Compose UI rendering of BDUI widgets | `compose-expert` |
 
 ## Prerequisites Reminder
 
