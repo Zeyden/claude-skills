@@ -16,6 +16,12 @@
       "Bash(git show*)",
       "Bash(git fetch*)",
       "Bash(git branch*)",
+      "Bash(git -C * status*)",
+      "Bash(git -C * diff*)",
+      "Bash(git -C * log*)",
+      "Bash(git -C * show*)",
+      "Bash(git -C * fetch*)",
+      "Bash(git -C * branch*)",
       "Bash(go *)",
       "Bash(make*)",
       "Bash(cat *)",
@@ -33,8 +39,7 @@
       "Fetch(https://*)",
       "Read(~/.claude/skills/**/*.md)"
     ],
-    "deny": [
-    ],
+    "deny": [],
     "ask": [
       "Bash(git commit*)",
       "Bash(git push*)",
