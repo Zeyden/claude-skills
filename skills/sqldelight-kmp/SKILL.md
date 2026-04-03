@@ -1,5 +1,5 @@
 ---
-name: sqldelight
+name: sqldelight-kmp
 description: >
   Expert guide for working with SQLDelight 2.x in Kotlin Multiplatform projects.
   Use when asked to set up SQLDelight, write .sq files, configure drivers for any

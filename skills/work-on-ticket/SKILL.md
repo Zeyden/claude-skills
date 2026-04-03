@@ -1,5 +1,5 @@
 ---
-name: Work on Ticket
+name: work-on-ticket
 description: Fetches issue tracker ticket details (Jira or Linear), creates an appropriately named branch, and initiates the task planning workflow. Use when the user says "work on [TICKET_ID]" or similar phrases.
 allowed-tools: Bash(git *:*), mcp__atlassian__getJiraIssue, mcp__linear-server__get_issue
 ---
