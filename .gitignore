@@ -20,3 +20,12 @@ image-cache/
 
 shell-snapshots/
 /.credentials.json
+
+# Runtime / cache
+/chrome/
+/sessions/
+/telemetry/
+/mcp-needs-auth-cache.json
+
+# macOS
+.DS_Store
