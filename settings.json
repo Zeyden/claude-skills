@@ -44,6 +44,9 @@
       "Fetch(https://*)",
       "Read(~/.claude/skills/**/*.md)",
       "Read(~/Pictures/**)",
+      "Read(~/Products/**)",
+      "Glob(~/Products/**)",
+      "Grep(~/Products/**)",
       "mcp__atlassian__get_issue",
       "mcp__atlassian__search_issues",
       "mcp__claude_ai_Atlassian__getJiraIssue",
@@ -144,7 +147,7 @@
     ]
   },
   "language": "English UK",
-  "effortLevel": "high",
+  "effortLevel": "low",
   "voiceEnabled": true,
   "maxTokens": 128000
 }

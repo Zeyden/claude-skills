@@ -56,7 +56,9 @@ Ignore all other fields unless the user explicitly asks to set them.
 | Low | `4` |
 | Lowest | `5` |
 
-## Issue Type IDs (platform-specific, primary)
+## Issue Type IDs
+
+**Platform-specific (primary):**
 
 | Type | ID |
 |------|----|
@@ -68,6 +70,12 @@ Ignore all other fields unless the user explicitly asks to set them.
 | BE Bug | `10511` |
 | Web Task | `10580` |
 | Web Bug | `10584` |
-| Epic | `10000` |
-| Sub-task | `10003` |
-| Sprint Goal | `10072` |
+
+**General:**
+
+| Type | ID | Notes |
+|------|----|-------|
+| Epic | `10000` | Parent for platform tasks. Assignee is typically the feature-lead. |
+| Task | `10002` | General-purpose type when no platform type fits (e.g. spikes, research). Prefix summary with `[SPIKE]` for research tasks. |
+| Sub-task | `10003` | Never used in CLC. |
+| Sprint Goal | `10072` | |
