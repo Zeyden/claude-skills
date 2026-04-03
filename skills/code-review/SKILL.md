@@ -1,5 +1,5 @@
 ---
-name: Code Review
+name: code-review
 description: Performs comprehensive code reviews of git branches, analyzing code quality, security, performance, and best practices. Use when the user says "review" or "code review" or asks to review pull requests, merge requests, or analyze branch changes before merging.
 allowed-tools: Bash(git log:*), Bash(git diff:*), Bash(git show:*), Bash(git branch:*), Bash(git rev-parse:*), Bash(git status:*), Bash(git checkout:*), Bash(git fetch:*), Bash(git worktree:*), Bash(rm -rf:*), Bash(cat:*), Bash(pwd), Bash(cd *), Bash(ls:*), Grep, Glob, Read, Write, mcp__atlassian__getJiraIssue, mcp__linear-server__get_issue
 ---

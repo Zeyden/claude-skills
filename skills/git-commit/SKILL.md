@@ -1,5 +1,5 @@
 ---
-name: Git Commit
+name: git-commit
 description: Generates storytelling-focused Conventional Commits messages with optional issue tracker context, then commits and pushes changes. Use when the user says "commit", "git commit", or asks to commit changes, wants to create a commit, or when work is complete and ready to commit.
 allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git add:*), Bash(git branch:*), Bash(git checkout:*), Bash(git log:*), AskUserQuestion, mcp__atlassian__getJiraIssue, mcp__linear-server__get_issue
 ---

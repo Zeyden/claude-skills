@@ -1,3 +1,19 @@
+## Configuration Scope Rule
+
+**All configuration changes are ALWAYS at the user level** (`~/.claude/`). This applies to:
+- MCP servers (added to `~/.claude.json`)
+- Skills (added to `~/.claude/skills/`)
+- Agents (added to `~/.claude/agents/`)
+- `settings.json` permissions (allow/deny/ask lists)
+- `CLAUDE.md` instructions
+- Any references, configs, or allow lists related to the above
+
+Never modify project-level files (`.claude/`, `.mcp.json`, etc.) for these unless explicitly told otherwise.
+
+## GitLab CLI
+
+Use `glab` CLI for all GitLab operations (MRs, issues, pipelines, CI, etc.) instead of API calls or web URLs.
+
 # Engineering & Development Skills
 
 This project contains Skills that enhance Claude's ability to handle engineering workflows (ticket tracking, code review, version control) and provide expert guidance for Kotlin Multiplatform (KMP) development with Compose Multiplatform, as well as Figma design automation.
@@ -14,6 +30,11 @@ Automatically invoke these skills when you detect matching patterns:
 | "commit", "git commit", asks to commit changes, work is complete and ready to commit | `git-commit` |
 | "review MR", "review PR", "summarize MR", "PR context", shares MR/PR link | `code-review` |
 | "execute figma script", "run figma script", references a Figma Plugin API script file | `execute-figma-script` |
+| "obsidian", "vault", "daily note", Obsidian CLI operations, note-taking vault context | `obsidian` |
+| "jira", "jira issue", JQL query, `atlassian.net` link, Jira project management | `jira` |
+| "notion", "notion page", "notion database", "workspace", Notion content operations | `notion` |
+| "linear", "linear issue", `linear.app` link, Linear project management | `linear` |
+| "lokalise", "translation keys", "localisation", "i18n", `lokalise.com` link, translation management | `lokalise` |
 
 Ticket IDs follow the pattern `[A-Z]+-[0-9]+` (e.g., `SUB-123`, `PROJ-42`). This covers both Jira and Linear-style identifiers.
 
@@ -32,6 +53,7 @@ Ticket IDs follow the pattern `[A-Z]+-[0-9]+` (e.g., `SUB-123`, `PROJ-42`). This
 | kotlin-inject, DI setup in Kotlin, Dagger alternatives for KMP, compile-time injection, @Component/@Inject/@Provides, kotlin-inject-anvil, assisted injection, scoping, qualifiers, multi-bindings, KmpComponentCreate, DI framework choice for KMP | `kotlin-inject` |
 | SQLDelight setup, .sq files, database drivers (Android/iOS/JVM/JS), migrations (.sqm), ColumnAdapter, custom column types, coroutines-extensions (asFlow, mapToList), reactive queries, SQLite performance, WAL mode, generateAsync | `sqldelight-kmp` |
 | BDUI Sanity pages, BDUI widget configuration, BDUI styling (BDUIStyleV1Output), Sanity CMS BDUI pages, widget catalog, enrichment backends, Lokalize keys, BDUI landing pages, JavaScript actions, BDUI widget fields, BDUISupercell, BDUIInformer, BDUIAccordion, BDUIButton, BDUI OpenAPI contracts, Input/Output pattern | `bdui-sanity` |
+| Go backend, pkg/log, postgreskit, pubsub/v2, Google pub/sub, AsyncAPI SDK, outbox pattern, otelkit, metrics.yaml, DataDog tracing, tabbycli, Caddy API gateway, ffkit, OpenFeature, auth/casbin, l10nkit, Temporal, pgbouncer, migrations, Tabby Go service, project-template | `tabby-go` |
 
 Never perform these workflows manually when a skill exists - always invoke the appropriate skill.
 
@@ -101,8 +123,28 @@ The KMP expert skills are designed to work together. When one skill identifies a
 | `sqldelight-kmp` | Compose UI collecting StateFlow from queries | `compose-expert` |
 | `sqldelight-kmp` | Desktop file paths, app data directories | `desktop-expert` |
 | `sqldelight-kmp` | Android Context, ViewModel lifecycle | `android-expert` |
-| `bdui-sanity` | Go backend handlers, pipeline, preprocessors, postprocessors | `bdui-go` |
+| `bdui-sanity` | Go backend handlers, pipeline, preprocessors, postprocessors | `tabby-go` |
 | `bdui-sanity` | Compose UI rendering of BDUI widgets | `compose-expert` |
+| `tabby-go` | BDUI widget configuration, Sanity CMS | `bdui-sanity` |
+| `tabby-go` | Compose UI rendering of BDUI widgets | `compose-expert` |
+| `obsidian` | Jira issue context for notes | `jira` |
+| `obsidian` | Linear issue context for notes | `linear` |
+| `obsidian` | Notion page content for notes | `notion` |
+| `jira` | Obsidian vault notes for ticket context | `obsidian` |
+| `jira` | Notion documentation for ticket context | `notion` |
+| `jira` | Linear issue cross-references | `linear` |
+| `linear` | Obsidian vault notes for issue context | `obsidian` |
+| `linear` | Notion documentation for issue context | `notion` |
+| `linear` | Jira issue cross-references | `jira` |
+| `notion` | Jira ticket references in pages | `jira` |
+| `notion` | Linear issue references in pages | `linear` |
+| `notion` | Obsidian vault content for pages | `obsidian` |
+| `lokalise` | Committing downloaded translation files | `git-commit` |
+| `lokalise` | Tracking localisation tasks in Jira | `jira` |
+| `lokalise` | Tracking localisation tasks in Linear | `linear` |
+| `lokalise` | Documenting localisation conventions | `notion` |
+| `lokalise` | Noting localisation decisions | `obsidian` |
+| `bdui-sanity` | Lokalize key management | `lokalise` |
 
 ## Prerequisites Reminder
 
@@ -145,3 +187,7 @@ When asking, suggest the likely account based on topic:
 - **Professional topics** (work, job, team, projects, documentation) → suggest `notion-work`
 
 The suggestion must still be **confirmed** by the user — never write to a suggested account without explicit approval.
+
+## Content Authoring Agent
+
+The `writer` agent writes and updates content across Obsidian, Jira, Notion, and Linear. It receives context from a planner or researcher, reads freely from all platforms, and asks before any write operation. Related skills: `obsidian`, `jira`, `notion`, `linear`.
