@@ -26,6 +26,7 @@ Automatically invoke these skills when you detect matching patterns:
 
 | Trigger | Skill |
 |---------|-------|
+| "/resolve TICKET-ID", "/resolve <link>" | `resolve` |
 | "work on [TICKET_ID]", "start on [TICKET_ID]", "pick up [TICKET_ID]", "[TICKET_ID]" | `work-on-ticket` |
 | "commit", "git commit", asks to commit changes, work is complete and ready to commit | `git-commit` |
 | "review MR", "review PR", "summarize MR", "PR context", shares MR/PR link | `code-review` |
@@ -35,6 +36,9 @@ Automatically invoke these skills when you detect matching patterns:
 | "notion", "notion page", "notion database", "workspace", Notion content operations | `notion` |
 | "linear", "linear issue", `linear.app` link, Linear project management | `linear` |
 | "lokalise", "translation keys", "localisation", "i18n", `lokalise.com` link, translation management | `lokalise` |
+| "mermaid", "diagram", "flowchart", "sequence diagram", "class diagram", "state diagram", "gantt", "mindmap", "timeline", visualise/draw as diagram in Obsidian | `mermaid` |
+| "use context7", "check the docs", asking about any external library/framework/SDK/API/CLI syntax, setup, migration, or debugging | `context7` |
+| "bamboohr", "who is out", "who's out", "time off", "PTO", "leave", "absence", "vacation", "employee directory", "team capacity" | `bamboohr` |
 
 Ticket IDs follow the pattern `[A-Z]+-[0-9]+` (e.g., `SUB-123`, `PROJ-42`). This covers both Jira and Linear-style identifiers.
 
@@ -145,6 +149,13 @@ The KMP expert skills are designed to work together. When one skill identifies a
 | `lokalise` | Documenting localisation conventions | `notion` |
 | `lokalise` | Noting localisation decisions | `obsidian` |
 | `bdui-sanity` | Lokalize key management | `lokalise` |
+| `obsidian` | Mermaid diagram syntax, creating/editing diagrams | `mermaid` |
+| `mermaid` | Vault operations (read/write/search notes) | `obsidian` |
+| `bamboohr` | Sprint dates for capacity planning | `jira` |
+| `bamboohr` | Cycle dates for capacity planning | `linear` |
+| `bamboohr` | Recording absence notes in daily note | `obsidian` |
+| `jira` | Team member availability, who is out | `bamboohr` |
+| `linear` | Team member availability, who is out | `bamboohr` |
 
 ## Prerequisites Reminder
 
@@ -191,3 +202,30 @@ The suggestion must still be **confirmed** by the user — never write to a sugg
 ## Content Authoring Agent
 
 The `writer` agent writes and updates content across Obsidian, Jira, Notion, and Linear. It receives context from a planner or researcher, reads freely from all platforms, and asks before any write operation. Related skills: `obsidian`, `jira`, `notion`, `linear`.
+
+## Tabby Working Directory in Obsidian
+
+All substantial written artefacts produced during Tabby product work sessions — plans, architecture documents, requirement analyses, research notes, etc. — **must** be placed in the Obsidian vault under `Tabby/`.
+
+**Folder distinction**:
+- `Tabby/` — Tabby product tasks (features, bugs, backend work)
+- `Claude Code/` — Claude Code tool work (skills, agents, templates)
+- `Products/` — Personal pet projects unrelated to Tabby (e.g. `Products/subtitler`)
+
+### Rules
+
+1. **Create a task folder** — When starting work on a task that will produce written artefacts, create a subfolder inside the appropriate root folder (`Tabby/`, `Claude Code/`, or `Products/`) named after the task in natural language (e.g. `Super Button`, `iOS Developer Agent`, `Auth Middleware Rewrite`). Use the task's human-readable name, not a ticket ID.
+2. **Place all artefacts inside that folder** — Implementation plans, architecture docs, requirement analyses, design notes, skeleton files, research summaries — everything goes into the task folder as separate Obsidian notes.
+3. **Use the `obsidian` skill** for all file creation — create notes via `obsidian create vault=Obsidian path="Tabby/<Folder>/<Note>.md" content='...'`. This ensures the notes appear in Obsidian with proper sync.
+4. **Naming** — Use natural language titles with spaces for both folders and files (e.g. `Implementation Plan.md`, `Architecture.md`, `Requirements.md`). Follow vault conventions.
+5. **Evolve the folder** — As the conversation progresses and new artefacts are needed (documentation, additional plans, diagrams), add them to the same task folder.
+6. **When to create** — Create working directories for: plan-mode outputs, multi-file agent/skill designs, architecture discussions, requirement analyses, research summaries, and any other substantial written work. Do NOT create folders for quick one-off answers or simple vault edits.
+
+### Examples
+
+| Task | Folder | Possible files |
+|------|--------|---------------|
+| Ticket "Add a super button" → plan mode | `Tabby/Super Button/` | `Implementation Plan.md`, `Architecture.md`, `Requirements.md` |
+| Designing an iOS developer agent + skills | `Claude Code/iOS Developer Agent/` | `Agent Skeleton.md`, `SwiftUI Skill.md`, `Swift Skill.md` |
+| Researching auth middleware rewrite | `Tabby/Auth Middleware Rewrite/` | `Research.md`, `Migration Plan.md` |
+| Personal project subtitler | `Products/subtitler/` | `Architecture.md`, `Research.md` |

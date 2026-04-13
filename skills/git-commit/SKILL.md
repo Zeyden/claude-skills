@@ -133,6 +133,14 @@ Problem solved:
 **IMPORTANT: Do not use `git add -A` or `git add .`**
 Commit only the files that are already staged and understood.
 
+**Only stage files related to the current task.** Before staging, review `git status` and exclude:
+- Plan files (`plan.md`, implementation plans) created during planning
+- Generated mocks not related to this ticket
+- Proto generation results not related to this ticket
+- Any other artefacts that aren't part of the implementation (temp files, local configs)
+
+When in doubt, stage files explicitly by name.
+
 **CRITICAL: The user MUST confirm before executing `git commit` or `git push`.**
 These commands are intentionally NOT in the allowed-tools list, so the user will be prompted for approval.
 

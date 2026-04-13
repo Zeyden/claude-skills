@@ -49,6 +49,8 @@
       "Grep(~/Products/**)",
       "mcp__atlassian__get_issue",
       "mcp__atlassian__search_issues",
+      "mcp__atlassian__lookupJiraAccountId",
+      "mcp__atlassian__searchJiraIssuesUsingJql",
       "mcp__claude_ai_Atlassian__getJiraIssue",
       "mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql",
       "mcp__claude_ai_Atlassian__getVisibleJiraProjects",
@@ -110,7 +112,17 @@
       "Bash(obsidian templates*)",
       "Bash(obsidian random:read*)",
       "Bash(obsidian search:context*)",
-      "Bash(git merge-base*)"
+      "Bash(git merge-base*)",
+      "mcp__bamboohr__get-employee",
+      "mcp__bamboohr__get-employee-photo",
+      "mcp__bamboohr__get-employee-directory",
+      "mcp__bamboohr__get-employee-goals",
+      "mcp__bamboohr__estimate-time-off-balance",
+      "mcp__bamboohr__get-time-off-requests",
+      "mcp__bamboohr__get-whos-out",
+      "mcp__bamboohr__list-company-files",
+      "mcp__bamboohr__get-company-file",
+      "mcp__bamboohr__get-meta-fields"
     ],
     "deny": [],
     "ask": [
@@ -146,8 +158,24 @@
       "Bash(obsidian base:create*)"
     ]
   },
+  "model": "opus",
+  "enabledPlugins": {
+    "slack@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
+  },
   "language": "English UK",
-  "effortLevel": "low",
+  "effortLevel": "medium",
   "voiceEnabled": true,
   "maxTokens": 128000
 }

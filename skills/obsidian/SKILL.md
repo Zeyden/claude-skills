@@ -1,7 +1,7 @@
 ---
 name: obsidian
 description: "Obsidian vault operations via the official CLI. Reading, searching, creating/updating notes, tasks, tags, properties, and templates. Default vault: Obsidian. Use when working with Obsidian vaults, notes, daily notes, tasks, tags, properties, templates, or vault structure."
-allowed-tools: Bash(obsidian read*), Bash(obsidian search*), Bash(obsidian tags*), Bash(obsidian tag *), Bash(obsidian tasks*), Bash(obsidian properties*), Bash(obsidian property:read*), Bash(obsidian vault*), Bash(obsidian vaults*), Bash(obsidian files*), Bash(obsidian folders*), Bash(obsidian folder *), Bash(obsidian file *), Bash(obsidian backlinks*), Bash(obsidian links*), Bash(obsidian outline*), Bash(obsidian bookmarks*), Bash(obsidian deadends*), Bash(obsidian orphans*), Bash(obsidian wordcount*), Bash(obsidian diff*), Bash(obsidian history*), Bash(obsidian daily:read*), Bash(obsidian daily:path*), Bash(obsidian base:query*), Bash(obsidian base:views*), Bash(obsidian bases*), Bash(obsidian recents*), Bash(obsidian aliases*), Bash(obsidian unresolved*), Bash(obsidian sync:status*), Bash(obsidian sync:history*), Bash(obsidian template:read*), Bash(obsidian templates*), Bash(obsidian random:read*), Bash(obsidian search:context*)
+allowed-tools: Bash(obsidian read*), Bash(obsidian search*), Bash(obsidian tags*), Bash(obsidian tag *), Bash(obsidian tasks*), Bash(obsidian properties*), Bash(obsidian property:read*), Bash(obsidian vault*), Bash(obsidian vaults*), Bash(obsidian files*), Bash(obsidian folders*), Bash(obsidian folder *), Bash(obsidian file *), Bash(obsidian backlinks*), Bash(obsidian links*), Bash(obsidian outline*), Bash(obsidian bookmarks*), Bash(obsidian deadends*), Bash(obsidian orphans*), Bash(obsidian wordcount*), Bash(obsidian diff*), Bash(obsidian history*), Bash(obsidian daily:read*), Bash(obsidian daily:path*), Bash(obsidian base:query*), Bash(obsidian base:views*), Bash(obsidian bases*), Bash(obsidian recents*), Bash(obsidian aliases*), Bash(obsidian unresolved*), Bash(obsidian sync:status*), Bash(obsidian sync:history*), Bash(obsidian template:read*), Bash(obsidian templates*), Bash(obsidian random:read*), Bash(obsidian search:context*), Bash(obsidian open*)
 ---
 
 # Obsidian CLI — Vault Operations
@@ -44,7 +44,7 @@ See `references/vault-conventions.md` for tag taxonomy, frontmatter properties, 
 
 **Content formatting:**
 - Use `\n` for newline and `\t` for tab in content values
-- Quote values with spaces: `content="Hello world"`
+- Always use **single quotes** for `content=` values: `content='Hello world'`. Double quotes cause shell expansion issues with backticks, special characters, and markdown.
 
 **Output formats:**
 - Many commands support `format=json|tsv|csv` (default: text/tsv)
@@ -149,28 +149,42 @@ obsidian sync:history vault=Obsidian                   # Sync history
 obsidian random:read vault=Obsidian                    # Read a random note
 ```
 
+## Note Title Rule: Never Duplicate the Filename as H1
+
+Never start a note with `# <note-name>` or `# <date>` — Obsidian already shows the filename as the title. Start content directly with the first meaningful heading or body text. H1 headings are fine for top-level content sections within the note.
+
+## Post-Write Rule: Always Open the Modified File
+
+After any write operation (create, overwrite, append, prepend, property change, task toggle, delete), always open the modified file in Obsidian immediately afterwards — unless it was a deletion:
+
+```bash
+obsidian open vault=Obsidian path="<path-to-modified-file>"
+```
+
+Do this even if the user did not explicitly ask. The file should be visible in Obsidian as soon as the change is made.
+
 ## Write Operations Reference
 
 **All write operations require user approval before execution.**
 
 ### Create Notes
 ```bash
-obsidian create vault=Obsidian name="Note Title" content="# Title\n\nBody text"
+obsidian create vault=Obsidian name="Note Title" content='# Title\n\nBody text'
 obsidian create vault=Obsidian name="Trip to Paris" template=Travel
-obsidian create vault=Obsidian name="Note" content="Hello" open         # Create and open
-obsidian create vault=Obsidian name="Note" content="Hello" overwrite    # Overwrite if exists
+obsidian create vault=Obsidian name="Note" content='Hello' open         # Create and open
+obsidian create vault=Obsidian name="Note" content='Hello' overwrite    # Overwrite if exists
 ```
 
 ### Append / Prepend
 ```bash
-obsidian append vault=Obsidian file=<name> content="New content at the end"
-obsidian prepend vault=Obsidian file=<name> content="New content at the start"
+obsidian append vault=Obsidian file=<name> content='New content at the end'
+obsidian prepend vault=Obsidian file=<name> content='New content at the start'
 ```
 
 ### Daily Note Operations
 ```bash
-obsidian daily:append vault=Obsidian content="- [ ] Buy groceries"
-obsidian daily:prepend vault=Obsidian content="## Morning\n\nToday's priorities:"
+obsidian daily:append vault=Obsidian content='- [ ] Buy groceries'
+obsidian daily:prepend vault=Obsidian content='## Morning\n\nToday''s priorities:'
 ```
 
 ### Task Management
@@ -230,6 +244,10 @@ obsidian templates vault=Obsidian                     # List templates
 obsidian template:read vault=Obsidian name=Meeting    # Preview template
 obsidian create vault=Obsidian name="Sprint Planning 2026-04-01" template=Meeting
 ```
+
+## Related Skills
+
+- **`mermaid`** — Comprehensive Mermaid diagram syntax for creating diagrams in Obsidian notes. Delegate to this skill when the user asks to create, edit, or fix Mermaid diagrams, or wants to visualise information as a diagram. Covers all diagram types (flowchart, sequence, class, state, ER, gantt, mindmap, etc.), styling, theming, and Obsidian-specific integration.
 
 ## Error Handling
 

@@ -47,25 +47,34 @@ If neither MCP tool is connected, ask the user to paste the ticket details or de
 
 Create a branch name using this format:
 ```
-[TICKET_ID]-[kebab-case-summary]
+[type]/[TICKET_ID]-[kebab-case-summary]
 ```
 
+**Derive type from the issue type:**
+- Bug / Bug Fix → `fix`
+- Feature / Task / Story → `feat`
+- Chore / Maintenance / Spike / Research → `chore`
+- Refactor → `refactor`
+- Docs → `docs`
+
 **Branch Naming Rules:**
-- Start with the ticket ID (e.g., `PROJ-782-`)
+- Format: `type/TICKET-ID-kebab-summary`
 - Convert summary to kebab-case (lowercase, dashes instead of spaces)
 - Remove special characters
-- Keep it concise (max 50 characters total)
+- Keep it concise (max 60 characters total)
 - Use meaningful words from the summary
 
 **Examples:**
-- `PROJ-782-migrate-existing-mcp-server`
-- `PROJ-123-fix-auth-token-expiry`
-- `PROJ-456-add-user-settings-page`
+- `feat/PROJ-782-migrate-existing-mcp-server`
+- `fix/PROJ-123-fix-auth-token-expiry`
+- `feat/PROJ-456-add-user-settings-page`
+- `chore/CLC-1959-update-dependencies`
 
 **Implementation:**
 ```bash
 # Convert summary to kebab-case
 # Example: "Migrate existing MCP server" -> "migrate-existing-mcp-server"
+# Full branch: feat/PROJ-782-migrate-existing-mcp-server
 ```
 
 ### 4. Check Current Git State
@@ -278,6 +287,37 @@ if (user.isAdmin) return true
 - Avoid brittle tests that break on refactoring
 - Avoid excessive mocking — prefer real implementations where practical
 
+## Creating a Merge Request / Pull Request
+
+When the user asks to create an MR or PR for the current ticket branch:
+
+### MR Title Format
+
+**ALWAYS prefix the MR title with the ticket ID in square brackets:**
+
+```
+[TICKET_ID] type(scope): description
+```
+
+**Examples:**
+- `[CLC-1924] feat(paylaterwidget): add merchant data to icons and server-side overdue flag`
+- `[PROJ-782] chore(mcp): migrate existing MCP server configuration`
+- `[PROJ-123] fix(auth): prevent token refresh race condition`
+
+**How to derive the title:**
+1. Extract the ticket ID from the current branch name (e.g., `feature/CLC-1924-...` → `CLC-1924`)
+2. Generate a Conventional Commits subject line from the ticket summary and changes
+3. Prepend `[TICKET_ID] ` to the subject line
+
+**NEVER omit the `[TICKET_ID]` prefix from the MR/PR title.**
+
+### MR Body
+
+Include:
+- A brief description of what was changed and why
+- Reference to the ticket (e.g., `Closes CLC-1924`)
+- Any notable implementation decisions
+
 ## Important Notes
 
 - **Always check git state** before creating branches
@@ -286,6 +326,7 @@ if (user.isAdmin) return true
 - **Keep branch names concise** - aim for clarity over completeness
 - **Include ticket context** in the task planning prompt to give the planner maximum context
 - **The task breakdown gives the user visibility into the implementation plan before work begins**
+- **Always prefix MR/PR titles with `[TICKET_ID]`** — e.g. `[CLC-1924] feat(...):`
 
 ## Success Criteria
 

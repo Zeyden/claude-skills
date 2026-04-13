@@ -17,10 +17,10 @@ Use these field IDs directly when creating/editing issues. No lookups needed.
 | Story Points | `customfield_10026` | number | |
 | Labels | `labels` | string[] | |
 | Fix Versions | `fixVersions` | `[{ id }]` | |
-| Sprint | `customfield_10020` | `{ id }` | |
+| Sprint | `customfield_10020` | number | Sprint ID must be a plain number (e.g. `34385`), **not** an object like `{ id }`. |
 | Parent | `parent` | `{ key }` | Epic or parent issue |
-| Linked Issues | `issuelinks` | link object | |
-| QA Notes | `customfield_10213` | string | |
+| Linked Issues | `issuelinks` | link object | Use `createIssueLink` tool to add links after issue creation. Cannot be set inline during `createJiraIssue`. |
+| QA Notes | `customfield_10213` | ADF | Rich text field — must use Atlassian Document Format JSON, not plain strings or markdown |
 | Status | `status` | read-only | Use transitions to change |
 
 ## Fields we never use in CLC
