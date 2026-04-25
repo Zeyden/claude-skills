@@ -1,0 +1,42 @@
+{
+  "name": "zeyden",
+  "owner": {
+    "name": "Zeyden"
+  },
+  "metadata": {
+    "description": "Zeyden's private Claude Code marketplace: KMP development experts, code-lifecycle workflow, issue trackers, knowledge tools, and Tabby backend skills.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "kmp-dev",
+      "source": "./kmp-dev",
+      "description": "Kotlin Multiplatform development experts: Kotlin, coroutines, Compose, Gradle, Android, Desktop, kotlin-inject, SQLDelight, Notebook.",
+      "category": "development"
+    },
+    {
+      "name": "workflow",
+      "source": "./workflow",
+      "description": "Code lifecycle workflows (commit, review, ticket-to-merge) plus developer/code-reviewer/test-runner agents.",
+      "category": "development"
+    },
+    {
+      "name": "issue-tracking",
+      "source": "./issue-tracking",
+      "description": "Jira, Linear, Lokalise, BambooHR + writer agent. Requires the corresponding MCP servers in ~/.claude.json.",
+      "category": "productivity"
+    },
+    {
+      "name": "knowledge-base",
+      "source": "./knowledge-base",
+      "description": "Obsidian, Notion (dual account), Mermaid, Context7.",
+      "category": "productivity"
+    },
+    {
+      "name": "tabby-backend",
+      "source": "./tabby-backend",
+      "description": "Tabby-internal: Go backend patterns and BDUI Sanity widgets. Work-Mac only.",
+      "category": "internal"
+    }
+  ]
+}

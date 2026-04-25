@@ -1,0 +1,9 @@
+{
+  "name": "knowledge-base",
+  "version": "0.1.0",
+  "description": "Knowledge tools: Obsidian vault CLI, Notion (dual personal/work accounts), Mermaid diagram authoring, and Context7 live library docs lookup.",
+  "author": {
+    "name": "Zeyden"
+  },
+  "keywords": ["obsidian", "notion", "mermaid", "context7", "docs", "diagrams"]
+}

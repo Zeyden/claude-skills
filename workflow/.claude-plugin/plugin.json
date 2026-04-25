@@ -1,0 +1,9 @@
+{
+  "name": "workflow",
+  "version": "0.1.0",
+  "description": "Code lifecycle workflows: storytelling commits, branch reviews, ticket-driven branch creation, full ticket-to-merge orchestration, Figma script execution. Bundles the developer, code-reviewer, and test-runner agents.",
+  "author": {
+    "name": "Zeyden"
+  },
+  "keywords": ["git", "commit", "code-review", "ticket-workflow", "figma"]
+}
