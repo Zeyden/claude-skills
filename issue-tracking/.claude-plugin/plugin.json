@@ -1,0 +1,9 @@
+{
+  "name": "issue-tracking",
+  "version": "0.1.0",
+  "description": "Issue trackers and people-ops: Jira, Linear, Lokalise, BambooHR. Includes the writer agent for content authoring across these surfaces. Requires the corresponding MCP servers configured in ~/.claude.json.",
+  "author": {
+    "name": "Zeyden"
+  },
+  "keywords": ["jira", "linear", "lokalise", "bamboohr", "tickets", "i18n", "hr"]
+}

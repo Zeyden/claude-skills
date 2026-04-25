@@ -1,0 +1,9 @@
+{
+  "name": "tabby-backend",
+  "version": "0.1.0",
+  "description": "Tabby-internal backend skills: Go service patterns (pkg/log, postgreskit, pubsub/v2, otelkit, ffkit, l10nkit, auth/casbin, Temporal) and BDUI Sanity CMS widget catalog. Work-Mac only.",
+  "author": {
+    "name": "Zeyden"
+  },
+  "keywords": ["tabby", "go", "bdui", "sanity", "backend"]
+}

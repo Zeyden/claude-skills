@@ -1,0 +1,9 @@
+{
+  "name": "kmp-dev",
+  "version": "0.1.0",
+  "description": "Kotlin Multiplatform development experts: Kotlin language patterns, coroutines, Compose Multiplatform UI, Gradle, Android, Desktop, kotlin-inject DI, SQLDelight, and Kotlin Notebook.",
+  "author": {
+    "name": "Zeyden"
+  },
+  "keywords": ["kotlin", "kmp", "compose", "android", "desktop", "gradle", "sqldelight", "kotlin-inject"]
+}
