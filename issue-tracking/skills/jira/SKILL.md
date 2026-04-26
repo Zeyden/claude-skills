@@ -93,10 +93,34 @@ Query issues using Jira Query Language.
 Required fields: `project`, `issueType`, `summary`
 Optional: `description`, `assignee`, `priority`, `labels`, `components`, `fixVersions`, custom fields
 
-### Edit Issue
+### Edit Issue — Confirmation Workflow
 `mcp__claude_ai_Atlassian__editJiraIssue`
 
 Update any field on an existing issue (summary, description, assignee, priority, labels, etc.)
+
+Before executing `editJiraIssue`, **always** present a confirmation summary showing every field that will change. Use a diff-style table with current → new values:
+
+```
+Editing CLC-1957:
+
+┌───────────────┬─────────────────────────────┬─────────────────────────────┐
+│ Field         │ Current                     │ New                         │
+├───────────────┼─────────────────────────────┼─────────────────────────────┤
+│ Summary       │ Add deeplink support to...  │ BNPL blocked state — ...    │
+│ Description   │ (old — 5 lines)             │ (new — 45 lines, expanded)  │
+│ Priority      │ Lowest                      │ (unchanged)                 │
+└───────────────┴─────────────────────────────┴─────────────────────────────┘
+
+Additional actions:
+• Link: CLC-1957 "is caused by" CLC-1833
+```
+
+- Show **all fields being changed** with before/after values
+- For long fields (description), show a brief summary or line count, not the full text
+- List any **additional actions** (links, transitions, comments) that will be executed alongside the edit
+- Fields that are **not changing** can be omitted or marked `(unchanged)`
+- Ask: **"Apply these changes? (Yes / change field name)"**
+- Only proceed after explicit user approval
 
 ### Transition Issue
 `mcp__claude_ai_Atlassian__transitionJiraIssue`

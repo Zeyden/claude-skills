@@ -106,6 +106,22 @@ If no MCP tool is connected, ask the user to paste ticket details.
 - Status
 - Assignee
 
+### Sync Base Branch
+
+Before creating the worktree, check what branch you're currently on:
+
+```bash
+git branch --show-current
+```
+
+If it's `main`, `master`, or `develop`, pull the latest commits so the new worktree branches from up-to-date code:
+
+```bash
+git pull
+```
+
+If you're on any other branch, skip — the worktree will branch from the current HEAD, which is intentional.
+
 ### Create Worktree and Branch
 
 Derive the branch type from the issue type:
@@ -437,8 +453,15 @@ When the user confirms merge (or `/loop` reports merged):
    rm -f "/tmp/mr_<MR_NUMBER>_state"
    ```
 
-5. **Report to user:**
-   > "Done. QA notes written, worktree cleaned up."
+5. **Return to base branch and pull latest:**
+   ```bash
+   DEFAULT=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|.*/||' || echo main)
+   git checkout "$DEFAULT" && git pull
+   ```
+   This leaves the repo in a clean, up-to-date state after the ticket is done.
+
+6. **Report to user:**
+   > "Done. QA notes written, worktree cleaned up, back on \`$DEFAULT\` and up to date."
 
 ---
 
