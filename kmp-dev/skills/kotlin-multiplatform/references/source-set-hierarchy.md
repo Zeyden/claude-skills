@@ -1,74 +1,110 @@
 # Source Set Hierarchy
 
-Visual guide to source set organization for KMP projects.
+Visual guide to source set organisation for KMP projects.
 
 ## Standard Hierarchy
 
 ```
 ┌────────────────────────────────────────────────────┐
-│                    commonMain                        │
+│                    commonMain                       │
 │  Pure Kotlin, no platform APIs                      │
-│  Examples: data models, business logic, validation  │
-│  Dependencies: kotlin-stdlib, kotlinx-coroutines    │
+│  Deps: kotlin-stdlib, kotlinx-coroutines, ktor...   │
 └────────────────┬───────────────────────────────────┘
                  │
     ┌────────────┼────────────┬──────────────┐
     ▼            ▼            ▼              ▼
 ┌──────────┐ ┌──────────┐ ┌──────────┐  ┌──────────┐
-│android   │ │ jvmMain  │ │ iosMain  │  │ Future:  │
-│Main      │ │(Desktop) │ │          │  │ jsMain   │
-│          │ │          │ │          │  │ wasmMain │
-│Android   │ │Compose   │ │iOS APIs  │  └──────────┘
-│framework │ │Desktop   │ │Security  │
-└──────────┘ └──────────┘ └──────────┘
+│android   │ │ jvmMain  │ │ iosMain  │  │ wasmJs/  │
+│Main      │ │(Desktop) │ │ (+x64/   │  │  jsMain  │
+│          │ │          │ │  arm64/  │  │          │
+│Android   │ │Compose   │ │  sim)    │  │ Browser  │
+│framework │ │Desktop   │ │iOS APIs  │  │ targets  │
+└──────────┘ └──────────┘ └──────────┘  └──────────┘
 ```
 
 ## Dependency Flow
 
 ```
-commonMain → Nothing (only Kotlin stdlib + kotlinx)
-androidMain → commonMain + Android framework
-jvmMain → commonMain + JVM + Compose Desktop
-iosMain → commonMain + iOS platform APIs
+commonMain → Kotlin stdlib + kotlinx + ktor-client + SQLDelight (KMP-ready)
+androidMain → commonMain + Android framework (android.*, AndroidX)
+jvmMain     → commonMain + JVM stdlib + Compose Desktop (Skiko)
+iosMain     → commonMain + platform.* via cinterop
+jsMain      → commonMain + browser/Node APIs
 ```
 
-## Advanced: jvmAndroid Intermediate Source Set
+## Default Hierarchy Template (modern approach)
 
-For projects sharing JVM libraries (Jackson, OkHttp) between Android and Desktop:
+`applyDefaultHierarchyTemplate()` sets up the standard intermediate source sets automatically (`appleMain`, `nativeMain`, `mobileMain` when applicable). Prefer this over manual `dependsOn` wiring unless you need a non-standard intermediate like `jvmAndroid`.
+
+```kotlin
+kotlin {
+    applyDefaultHierarchyTemplate()   // adds appleMain, nativeMain, etc.
+
+    androidTarget()
+    jvm()
+    iosX64(); iosArm64(); iosSimulatorArm64()
+}
+```
+
+This gives you, for free:
 
 ```
 commonMain
-    ├── jvmAndroid (optional)    ← JVM libraries shared by Android + Desktop
-    │   ├── androidMain
-    │   └── jvmMain
-    └── iosMain
+    ├── androidMain
+    ├── jvmMain
+    ├── nativeMain
+    │   └── appleMain
+    │       └── iosMain
+    │           ├── iosX64Main
+    │           ├── iosArm64Main
+    │           └── iosSimulatorArm64Main
+    ├── jsMain (if js target)
+    └── wasmJsMain (if wasmJs target)
 ```
 
+## Manual Intermediate: jvmAndroid
+
+When you want to share JVM libraries (OkHttp, Jackson, JDK `java.time`) between Android and Desktop **without** pushing them into `commonMain`:
+
 ```kotlin
-// build.gradle.kts - MUST be defined BEFORE androidMain/jvmMain
-val jvmAndroid = create("jvmAndroid") {
-    dependsOn(commonMain.get())
-    dependencies { api(libs.jackson.module.kotlin) }
+kotlin {
+    applyDefaultHierarchyTemplate()
+
+    sourceSets {
+        val jvmAndroid by creating {
+            dependsOn(commonMain.get())
+            dependencies { api(libs.okhttp) }
+        }
+        androidMain { dependsOn(jvmAndroid) }
+        jvmMain { dependsOn(jvmAndroid) }
+    }
 }
-jvmMain { dependsOn(jvmAndroid) }
-androidMain { dependsOn(jvmAndroid) }
 ```
+
+Do this BEFORE any target-specific configuration that consumes `androidMain` or `jvmMain`.
 
 ## Choosing the Right Source Set
 
 ```
-Pure Kotlin? → commonMain
-JVM-only library? → jvmAndroid (if shared) or platform-specific
-Android API? → androidMain
-Desktop API? → jvmMain
-iOS API? → iosMain
+Pure Kotlin, no platform APIs            → commonMain
+JVM-only library, Android + Desktop only → jvmAndroid
+Apple-only code (UIKit, platform.*)      → appleMain
+Android only                             → androidMain
+Desktop only                             → jvmMain
+iOS only                                 → iosMain (or iosX64Main + iosArm64Main + iosSimulatorArm64Main)
+Browser only                             → jsMain / wasmJsMain
 ```
 
 ## Summary
 
-| Source Set | Extends | Can Use | Example Code |
-|------------|---------|---------|-------------|
-| commonMain | - | Kotlin stdlib only | Data models, business logic |
-| androidMain | commonMain | Android framework | Activity, ViewModel |
-| jvmMain | commonMain | JVM + Compose Desktop | Window, MenuBar |
-| iosMain | commonMain | iOS platform | Security framework |
+| Source set | Extends | Can use | Typical content |
+|-----------|---------|---------|-----------------|
+| commonMain | — | kotlin stdlib + kotlinx + KMP libs | Domain models, use cases, shared Compose |
+| appleMain  | commonMain | platform.* (via default hierarchy) | Apple-only interop, Keychain wrappers |
+| nativeMain | commonMain | cinterop, POSIX | Native-only helpers |
+| jvmAndroid | commonMain (manual) | JVM stdlib, JVM-only libs | OkHttp, Jackson, `java.time` |
+| androidMain | jvmAndroid / commonMain | Android framework | Activity, Context, Work Manager |
+| jvmMain    | jvmAndroid / commonMain | JVM + AWT / Compose Desktop | Window, MenuBar, file dialogs |
+| iosMain    | appleMain / commonMain | UIKit, Foundation | View controllers, Keychain |
+| jsMain     | commonMain | Browser DOM | DOM wiring |
+| wasmJsMain | commonMain | wasm-js bindings | wasm-js entry points |

@@ -55,6 +55,39 @@ cat .golangci.yml 2>/dev/null
 
 Also read neighbouring code to understand existing patterns.
 
+## Step 2b — Consult Expert Skills
+
+Before reviewing the diff, load any expert skills that match the files or patterns under review. They describe the conventions, anti-patterns, and delegation rules you should be reviewing *against*. Treat this step as mandatory whenever the diff touches their scope — do not wait for a signal from the user.
+
+### Kotlin Multiplatform projects
+
+| If the diff touches | Consult this skill |
+|---------------------|--------------------|
+| `.kt` / `.kts` code in a KMP module — ViewModels, sealed hierarchies, StateFlow/SharedFlow exposure, `@Immutable`, `inline`/`reified`, value classes | `kotlin-expert` |
+| Coroutines — `launch`, `async`, `supervisorScope`, `callbackFlow`, Flow operators (`flatMapLatest`, `combine`, `merge`, `shareIn`, `stateIn`, `debounce`), dispatcher management, `runTest`/Turbine tests | `kotlin-coroutines` |
+| KMP source set placement, `expect`/`actual` pairs, `kotlin { sourceSets { } }` | `kotlin-multiplatform` |
+| Gradle build files, `libs.versions.toml`, KSP configuration, dependency changes | `gradle-expert` |
+| DI wiring — `@Component`, `@Inject`, `@Provides`, `@MergeComponent`, `@ContributesTo`, `@ContributesBinding`, `@Assisted`, `@SingleIn`, kotlin-inject-anvil | `kotlin-inject` |
+| Composable UI — `@Composable` functions, `remember`, `derivedStateOf`, Material3 theming, recomposition, `@Stable`/`@Immutable` for UI | `compose-expert` |
+| Desktop-specific code — `Window`, `MenuBar`, `Tray`, file pickers, keyboard shortcuts, composeApp module | `desktop-expert` |
+| Android-specific code — Activity, Fragment, Navigation Compose, runtime permissions, Android lifecycle, `collectAsStateWithLifecycle` | `android-expert` |
+| SQLDelight — `.sq` / `.sqm` files, driver factories, migrations, reactive queries | `sqldelight-kmp` |
+| Kotlin Notebook (`.ipynb`) cells, `%use`, `@file:DependsOn`, DataFrame, Kandy | `kotlin-notebook` |
+
+### Go backend / Tabby services
+
+| If the diff touches | Consult this skill |
+|---------------------|--------------------|
+| Go code using Tabby internal `pkg/*` libraries, `postgreskit`, `pubsub/v2`, `otelkit`, `ffkit`, Caddy API gateway, Temporal, protobuf SDKs | `tabby-go` |
+
+### Cross-cutting
+
+| If the diff uses | Consult this skill |
+|------------------|--------------------|
+| Any external library/framework/SDK/API/CLI whose current behaviour you are unsure of | `context7` |
+
+How to consult: read the skill's `SKILL.md`, then any bundled references relevant to what the diff changes. Apply the skill's anti-pattern lists and delegation rules when forming your findings. When multiple skills apply (e.g. Compose UI that collects a StateFlow), load both — each skill's delegation map tells you which one owns which aspect.
+
 ## Step 3 — Review
 
 ### Correctness

@@ -22,6 +22,40 @@ You receive from the orchestrator:
 1. Read the project's `CLAUDE.md` if it exists in the worktree — it is the authoritative source for build commands, conventions, and project-specific instructions.
 2. Read relevant existing code to understand patterns, naming conventions, and architecture before writing new code.
 3. Identify the build tool and test framework from build files.
+4. **Consult the expert skills listed below** when the code you are about to write matches their scope. Load them proactively — do not wait for a user prompt.
+
+## Consulting Expert Skills
+
+Before implementing or fixing code, check the following skill list against what you are about to write. If a skill matches, consult its `SKILL.md` first so your implementation follows the right patterns.
+
+### Kotlin Multiplatform projects
+
+| If you are about to write/fix | Consult this skill |
+|-------------------------------|--------------------|
+| `.kt` / `.kts` code in a KMP module — ViewModels, sealed hierarchies, StateFlow/SharedFlow exposure, `@Immutable` data, `inline`/`reified` functions, value classes | `kotlin-expert` |
+| Coroutines — `launch`, `async`, `supervisorScope`, `callbackFlow`, Flow operators (`flatMapLatest`, `combine`, `merge`, `shareIn`, `stateIn`, `debounce`), dispatcher management, `runTest`/Turbine tests | `kotlin-coroutines` |
+| Placing a file under a KMP source set, adding `expect`/`actual`, or editing `kotlin { sourceSets { } }` blocks | `kotlin-multiplatform` |
+| Gradle build files, `libs.versions.toml`, KSP configuration, build errors, Desktop packaging | `gradle-expert` |
+| DI wiring — `@Component`, `@Inject`, `@Provides`, `@MergeComponent`, `@ContributesTo`, `@ContributesBinding`, `@Assisted`, `@SingleIn`, kotlin-inject-anvil | `kotlin-inject` |
+| Composable UI — `@Composable` functions, `remember`, `derivedStateOf`, Material3 theming, recomposition, `@Stable`/`@Immutable` for UI | `compose-expert` |
+| Desktop-specific code — `Window`, `MenuBar`, `Tray`, file pickers, keyboard shortcuts, composeApp module | `desktop-expert` |
+| Android-specific code — Activity, Fragment, Navigation Compose, runtime permissions, Android lifecycle, `collectAsStateWithLifecycle` | `android-expert` |
+| SQLDelight — `.sq` / `.sqm` files, driver factories, migrations, reactive queries | `sqldelight-kmp` |
+| Kotlin Notebook (`.ipynb`) cells, `%use`, `@file:DependsOn`, DataFrame, Kandy | `kotlin-notebook` |
+
+### Go backend / Tabby services
+
+| If you are about to write/fix | Consult this skill |
+|-------------------------------|--------------------|
+| Go code using Tabby internal `pkg/*` libraries, `postgreskit`, `pubsub/v2`, `otelkit`, `ffkit`, Caddy API gateway, Temporal, protobuf SDKs | `tabby-go` |
+
+### Cross-cutting
+
+| If you are about to | Consult this skill |
+|---------------------|--------------------|
+| Use any external library/framework/SDK/API/CLI and are unsure of current syntax or behaviour | `context7` |
+
+How to consult a skill: read its `SKILL.md`, follow any pointers to bundled references that match the current task, then write the code. When multiple skills apply (e.g. Compose UI that collects a StateFlow), load both — each skill's delegation map will tell you which one owns which aspect.
 
 ## Implementation Mode
 
