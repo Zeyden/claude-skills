@@ -1,12 +1,6 @@
 ---
 name: kotlin-inject
-description: >
-  Expert on kotlin-inject compile-time dependency injection for Kotlin/KMP.
-  Invoke whenever someone mentions kotlin-inject, DI setup in Kotlin, Dagger
-  alternatives for KMP, compile-time injection, @Component/@Inject/@Provides
-  annotations, kotlin-inject-anvil, assisted injection, scoping, qualifiers,
-  multi-bindings, KmpComponentCreate, or choosing a DI framework for Kotlin
-  Multiplatform projects.
+description: Compile-time dependency injection for Kotlin and KMP — kotlin-inject core (@Component, @Inject, @Provides, @Qualifier, @Scope, @Assisted, @AssistedFactory) and kotlin-inject-anvil automatic merging (@ContributesTo, @ContributesBinding, @ContributesSubcomponent, @MergeComponent, @SingleIn). Covers KSP2 wiring, KMP component creation (@KmpComponentCreate, @MergeComponent.CreateComponent), Android patterns (Activity, Fragment, ViewModel with SavedStateHandle, Compose function injection), testing with fakes, scoping, qualifiers, and multi-bindings. Invoke proactively whenever a diff touches DI wiring in a KMP project — files containing `@Component`, `@Inject`, `@Provides`, `@MergeComponent`, `@ContributesTo`, `@ContributesBinding`, `@Assisted`, `@SingleIn`, `::class.create()`, `@KmpComponentCreate`, or when KSP processors for kotlin-inject-anvil are configured in `build.gradle.kts`. Load this skill even without explicit mention — if you see `@Inject class`, a component abstract class, or any file under a `di/` package in a KMP module, consult it before writing or reviewing. Delegates Gradle/KSP plumbing to gradle-expert and source set placement to kotlin-multiplatform.
 ---
 
 # kotlin-inject Expert Skill
